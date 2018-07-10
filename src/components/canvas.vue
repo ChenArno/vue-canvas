@@ -75,6 +75,7 @@ export default {
       this.$store.commit('SET_USETYPE',type);
     },
     onclick(val){
+      this.myCanvas.setFont(val);
       this.isShowList = false;
     }
   }

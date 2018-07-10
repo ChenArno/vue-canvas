@@ -11,6 +11,7 @@ class Draw {
     this.context = this.canvas.getContext('2d');
     this.context.strokeStyle = "#FF0000";
     this.context.fillStyle = "#FF0000";
+    this.context.font = "18px Arial";
     this.img = new Image(); //用于动态绘制指向，矩形，原型
     this.rects = [];
     this.init();
@@ -106,11 +107,11 @@ class Draw {
         this.isDragging = false;
         this.isRight = false;
       } else if (this.type == "rect") {
-        if (this.SelectedRect){
+        if (this.SelectedRect) {
           this.rects = [...this.rects, ...[this.SelectedRect]];
         }
         // this.type = "move";
-        store.commit('SET_USETYPE','move');
+        store.commit('SET_USETYPE', 'move');
       }
     }, false)
   }
@@ -180,7 +181,17 @@ class Draw {
       this.context.lineWidth = v.isSelected ? 3 : 1;
       this.context.strokeRect(v.x, v.y, v.w, v.h);
       this.context.fillRect(v.x + v.w - 20, v.y + v.h - 20, 20, 20);
+      v.label && this.context.fillText(v.label, v.x + v.w / 2 - v.label.length * 9, v.y + v.h / 2 - 9);
     })
+  }
+
+  setFont({
+    label,
+    id
+  }) {
+    this.SelectedRect.label = label;
+    this.SelectedRect.id = id;
+    this.drawRect();
   }
 }
 
