@@ -99,6 +99,9 @@ export default {
   padding: 0;
   background-color: #ccc;
 }
+.canvas{
+  position: relative;
+}
 .menu li {
   float: left;
   width: 44px;

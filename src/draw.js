@@ -20,8 +20,8 @@ class Draw {
   init() {
     this.canvas.addEventListener('mousedown', event => {
       this.isDraw = true;
-      this.originX = event.clientX - this.canvas.offsetLeft; //原点x坐标
-      this.originY = event.clientY - this.canvas.offsetTop; //原点y坐标
+      this.originX = event.offsetX - this.canvas.offsetLeft; //原点x坐标
+      this.originY = event.offsetY - this.canvas.offsetTop; //原点y坐标
       this.context.moveTo(this.originX, this.originY);
       if (this.type == "move") {
         this.canvasClick(event);
@@ -29,8 +29,8 @@ class Draw {
     }, false)
     this.canvas.addEventListener('mousemove', event => {
       if (this.isDraw) {
-        let x = event.clientX - this.canvas.offsetLeft;
-        let y = event.clientY - this.canvas.offsetTop;
+        let x = event.offsetX - this.canvas.offsetLeft;
+        let y = event.offsetY - this.canvas.offsetTop;
         let newOriginX = this.originX,
           newOriginY = this.originY;
         if (this.SelectedRect && this.type == "move") {
@@ -49,12 +49,12 @@ class Draw {
               if (this.SelectedRect == v) {
                 //设置拉伸最小的边界
                 if ((x - this.SelectedRect.x) > 50) {
-                  this.SelectedRect.w = event.pageX - this.canvas.offsetLeft - this.SelectedRect.x;
+                  this.SelectedRect.w = event.offsetX - this.canvas.offsetLeft - this.SelectedRect.x;
                 } else {
                   this.SelectedRect.w = 50;
                 }
                 if ((y - this.SelectedRect.y) > 50) {
-                  this.SelectedRect.h = event.pageY - this.canvas.offsetTop - this.SelectedRect.y;
+                  this.SelectedRect.h = event.offsetY - this.canvas.offsetTop - this.SelectedRect.y;
                 } else {
                   this.SelectedRect.h = 50;
                 }
@@ -132,8 +132,8 @@ class Draw {
 
   canvasClick(e) {
     // 取得画布上被单击的点
-    this.originX = e.pageX - this.canvas.offsetLeft;
-    this.originY = e.pageY - this.canvas.offsetTop;
+    this.originX = e.offsetX - this.canvas.offsetLeft;
+    this.originY = e.offsetY - this.canvas.offsetTop;
     let widthstart, widthend, heightstart, heightend;
     // 查找被单击的矩形框
     this.rects.forEach((v, i, a) => {
